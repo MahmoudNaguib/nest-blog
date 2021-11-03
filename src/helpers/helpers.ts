@@ -20,3 +20,7 @@ export async function validatePassword(
   const hash = await bcrypt.hash(password, process.env.HASH_SALT);
   return hash == hashedPassword;
 }
+
+export function getRandomInteger(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}

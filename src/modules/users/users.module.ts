@@ -8,7 +8,7 @@ import { ProfileController } from './controllers/profile.controller';
 @Module({
   imports: [TypeOrmModule.forFeature([UserModel])],
   controllers: [AuthController, ProfileController],
-  providers: [UserService, ProfileController],
+  providers: [UserService],
   exports: [UserService],
 })
 export class UsersModule {}

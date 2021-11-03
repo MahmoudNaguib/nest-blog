@@ -5,5 +5,8 @@ module.exports = {
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
-  migrations: ['src/modules/**/migrations/*.ts'],
+  migrations: [__dirname + '/src/modules/**/migrations/*.ts'],
+  seeds: [__dirname + '/src/modules/**/seeders/*.ts'],
+  factories: [__dirname + '/src/modules/**/factories/*.ts'],
+  entities: [__dirname + '/src/modules/**/models/*.ts'],
 };

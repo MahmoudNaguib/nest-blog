@@ -7,6 +7,8 @@ import { HomeModule } from './modules/home/home.module';
 import { AuthMiddleware } from './middlewares/auth.middleware';
 import { ProfileController } from './modules/users/controllers/profile.controller';
 import { MyPostsController } from './modules/posts/controllers/my-posts.controller';
+import { UserModel } from './modules/users/models/user.model';
+import { PostModel } from './modules/posts/models/post.model';
 
 @Module({
   imports: [
