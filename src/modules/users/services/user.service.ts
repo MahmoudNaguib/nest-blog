@@ -83,9 +83,6 @@ export class UserService {
         });
       }
     }
-    ////////////////////////////// Update token
-    record.token = await generateToken(record.email);
-    ////////////////////////////////
     this.repository.merge(row, record);
     return await this.repository.save(row);
   }
@@ -98,11 +95,10 @@ export class UserService {
     if (!(await validatePassword(record.old_password, row.password))) {
       throw new ForbiddenException('Invalid password for this account');
     }
-    ////////////////////////////// Update token
-    const token = await generateToken(row.email);
-    const password = await bcrypt.hash(record.password, process.env.HASH_SALT);
-    row.token = await generateToken(row.email);
     row.password = await bcrypt.hash(record.password, process.env.HASH_SALT);
+    row.token = row.password;
+    this.repository.merge(row, row);
+    console.log(row);
     return await this.repository.save(row);
     ////////////////////////////////
   }
