@@ -7,6 +7,7 @@ module.exports = {
   database: process.env.DB_DATABASE,
   migrations: [__dirname + '/src/modules/**/migrations/*.ts'],
   seeds: [__dirname + '/src/modules/**/seeders/*.ts'],
+  //factories: [__dirname + '/src/factories/*.ts'],
   factories: [__dirname + '/src/modules/**/factories/*.ts'],
   entities: [__dirname + '/src/modules/**/models/*.ts'],
 };

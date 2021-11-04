@@ -4,11 +4,10 @@ import {
   NestMiddleware,
 } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
-import { UserService } from '../modules/users/services/user.service';
+import { AuthService } from '../modules/users/services/auth.service';
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
-  //constructor(private readonly service: UserService) {}
-  constructor(private readonly service: UserService) {}
+  constructor(private readonly service: AuthService) {}
   async use(req: Request, res: Response, next: NextFunction) {
     if (
       req.headers.authorization == '' ||

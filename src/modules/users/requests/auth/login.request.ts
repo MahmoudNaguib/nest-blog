@@ -1,10 +1,4 @@
-import {
-  IsNotEmpty,
-  IsString,
-  MinLength,
-  IsEmail,
-  ValidateNested,
-} from 'class-validator';
+import { IsNotEmpty, IsString, MinLength, IsEmail } from 'class-validator';
 export class LoginRequest {
   @IsNotEmpty()
   @IsString()

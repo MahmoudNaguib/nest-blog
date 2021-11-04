@@ -1,7 +1,9 @@
 import { Factory, Seeder } from 'typeorm-seeding';
 import { UserModel } from '../models/user.model';
+
 export class UsersSeeder implements Seeder {
   public async run(factory: Factory): Promise<void> {
+    console.log('users seeedssssssssss');
     await factory(UserModel)().create({
       name: 'user1',
       email: 'user1@demo.com',

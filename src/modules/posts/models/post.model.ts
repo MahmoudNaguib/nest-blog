@@ -2,11 +2,8 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  CreateDateColumn,
-  UpdateDateColumn,
   ManyToOne,
   JoinColumn,
-  PrimaryColumn,
 } from 'typeorm';
 import { UserModel } from '../../users/models/user.model';
 

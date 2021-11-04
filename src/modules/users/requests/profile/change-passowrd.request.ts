@@ -1,5 +1,5 @@
 import { IsNotEmpty, IsString, MinLength } from 'class-validator';
-import { Match } from '../../../custom-validation/match.decorator';
+import { Match } from '../../../../custom-validation/match.decorator';
 export class ChangePassowrdRequest {
   @IsNotEmpty()
   @IsString()

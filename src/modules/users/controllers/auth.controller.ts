@@ -1,31 +1,21 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Patch,
-  Delete,
-  Param,
-  Request,
-  Body,
-} from '@nestjs/common';
+import { Controller, Post, Body } from '@nestjs/common';
 /////////////////////////////////////////////////
-import { LoginRequest } from '../requests/login.request';
-import { UserService } from '../services/user.service';
-///////////////////////////////////////////////////
+import { AuthService } from '../services/auth.service';
+import { LoginRequest } from '../requests/auth/login.request';
+import { RegisterRequest } from '../requests/auth/register.request';
 import { UserResource } from '../resources/user.resource';
-import { CreateRequest } from '../requests/create.request';
 
 @Controller('api/auth')
 export class AuthController {
-  constructor(private readonly service: UserService) {}
+  constructor(private readonly service: AuthService) {}
   @Post('/login')
   async login(@Body() record: LoginRequest) {
     const row = await this.service.login(record);
     return { data: new UserResource(row).toArray(), token: row.token };
   }
   @Post('/register')
-  async register(@Body() record: CreateRequest) {
-    const row = await this.service.create(record);
+  async register(@Body() record: RegisterRequest) {
+    const row = await this.service.register(record);
     return {
       message: 'Registration successfully',
       data: new UserResource(row).toArray(),

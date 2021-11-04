@@ -2,9 +2,6 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  PrimaryColumn,
-  CreateDateColumn,
-  UpdateDateColumn,
   OneToMany,
   BeforeInsert,
   BeforeUpdate,
@@ -39,21 +36,23 @@ export class UserModel {
   updated_at: Date;
 
   @BeforeInsert()
-  async setPassword(password: string) {
-    const salt = await bcrypt.genSalt();
-    this.password = await bcrypt.hash(password || this.password, salt);
+  async setPassword() {
+    console.log('\n update password');
+    if (this.password) {
+      this.password = await bcrypt.hash(this.password, process.env.HASH_SALT);
+    }
   }
 
   @BeforeInsert()
   @BeforeUpdate()
-  async setToken(token: string) {
-    const generated =
-      (await bcrypt.hash(
-        token || this.token || this.email,
-        process.env.HASH_SALT,
-      )) +
-      (await bcrypt.hash(Math.random().toString(), process.env.HASH_SALT)) +
-      (await bcrypt.hash(Date.now().toString(), process.env.HASH_SALT));
-    this.token = generated;
+  async setToken() {
+    console.log('\n update token');
+    const newToken = this.token || this.name || this.email || this.password;
+    if (newToken) {
+      this.token =
+        (await bcrypt.hash(newToken, process.env.HASH_SALT)) +
+        (await bcrypt.hash(Math.random().toString(), process.env.HASH_SALT)) +
+        (await bcrypt.hash(Date.now().toString(), process.env.HASH_SALT));
+    }
   }
 }

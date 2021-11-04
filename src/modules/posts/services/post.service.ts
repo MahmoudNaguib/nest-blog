@@ -1,13 +1,11 @@
 import { Injectable, NotFoundException, Request } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-
-import { Pagination, PaginationOptionsInterface } from '../../../paginate';
-///////////////////////////////////////////////////////////////////////////////
+import { Pagination } from '../../../paginate';
+import { RequestQueryRequest } from '../../../requests/request-query.request';
 import { PostModel } from '../models/post.model';
 import { CreateRequest } from '../requests/create.request';
 import { UpdateRequest } from '../requests/update.request';
-import { RequestQueryRequest } from '../../../requests/request-query.request';
 
 @Injectable()
 export class PostService {
@@ -16,10 +14,7 @@ export class PostService {
     private readonly repository: Repository<PostModel>,
   ) {}
 
-  async findAllAndPaginate(
-    request,
-    conditions?: any,
-  ): Promise<Pagination<PostModel>> {
+  async findAll(request, conditions?: any): Promise<Pagination<PostModel>> {
     const { page, limit, orderField } = new RequestQueryRequest(request);
     const [results, total] = await this.repository.findAndCount({
       take: limit,
@@ -43,8 +38,13 @@ export class PostService {
     return await this.repository.save(this.repository.create(record));
   }
 
-  async findAll(): Promise<PostModel[]> {
-    return await this.repository.find({ order: { id: 'DESC' } });
+  async update(id: number, record: UpdateRequest) {
+    const row = await this.repository.findOne(id);
+    if (!row) {
+      throw new NotFoundException('Record is not exist');
+    }
+    this.repository.merge(row, record);
+    return await this.repository.save(row);
   }
 
   async findOne(id: number): Promise<PostModel> {
@@ -53,15 +53,6 @@ export class PostService {
       throw new NotFoundException('Record is not exist');
     }
     return row;
-  }
-
-  async update(id: number, record: UpdateRequest) {
-    const row = await this.repository.findOne(id);
-    if (!row) {
-      throw new NotFoundException('Record is not exist');
-    }
-    this.repository.merge(row, record);
-    return await this.repository.save(row);
   }
 
   async remove(id: number): Promise<void> {

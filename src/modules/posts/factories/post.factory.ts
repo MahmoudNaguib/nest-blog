@@ -5,7 +5,7 @@ import { getRandomInteger } from '../../../helpers/helpers';
 
 define(PostModel, (faker: typeof Faker) => {
   const row = new PostModel();
-  row.title = faker.lorem.sentence(getRandomInteger(10, 20));
-  row.content = faker.lorem.paragraph(getRandomInteger(10, 20));
+  row.title = faker.lorem.sentence(getRandomInteger(5, 20));
+  row.content = faker.lorem.paragraphs(getRandomInteger(5, 10));
   return row;
 });
