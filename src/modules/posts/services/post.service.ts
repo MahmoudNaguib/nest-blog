@@ -14,7 +14,10 @@ export class PostService {
     private readonly repository: Repository<PostModel>,
   ) {}
 
-  async findAll(request, conditions?: any): Promise<Pagination<PostModel>> {
+  async findAllWithPaginate(
+    request,
+    conditions?: any,
+  ): Promise<Pagination<PostModel>> {
     const { page, limit, orderField } = new RequestQueryRequest(request);
     const [results, total] = await this.repository.findAndCount({
       take: limit,
@@ -32,6 +35,10 @@ export class PostService {
         resource: 'posts',
       },
     });
+  }
+
+  async findAll(): Promise<PostModel[]> {
+    return await this.repository.find({ order: { id: 'DESC' } });
   }
 
   async create(record: CreateRequest): Promise<PostModel> {

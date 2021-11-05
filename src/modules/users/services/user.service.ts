@@ -16,7 +16,10 @@ export class UserService {
     private readonly repository: Repository<UserModel>,
   ) {}
 
-  async findAll(request, conditions?: any): Promise<Pagination<UserModel>> {
+  async findAllWithPaginate(
+    request,
+    conditions?: any,
+  ): Promise<Pagination<UserModel>> {
     const { page, limit, orderField } = new RequestQueryRequest(request);
     const [results, total] = await this.repository.findAndCount({
       take: limit,
@@ -34,6 +37,10 @@ export class UserService {
         resource: 'users',
       },
     });
+  }
+
+  async findAll(): Promise<UserModel[]> {
+    return await this.repository.find({ order: { id: 'DESC' } });
   }
 
   async create(record: CreateRequest): Promise<UserModel> {

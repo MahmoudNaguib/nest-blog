@@ -37,7 +37,6 @@ export class UserModel {
 
   @BeforeInsert()
   async setPassword() {
-    console.log('\n update password');
     if (this.password) {
       this.password = await bcrypt.hash(this.password, process.env.HASH_SALT);
     }
@@ -46,7 +45,6 @@ export class UserModel {
   @BeforeInsert()
   @BeforeUpdate()
   async setToken() {
-    console.log('\n update token');
     const newToken = this.token || this.name || this.email || this.password;
     if (newToken) {
       this.token =

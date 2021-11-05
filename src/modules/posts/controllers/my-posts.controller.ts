@@ -25,7 +25,7 @@ export class MyPostsController {
   constructor(private readonly service: PostService) {}
   @Get()
   async index(@Request() request): Promise<Pagination<PostModel>> {
-    const rows = await this.service.findAll(request, {
+    const rows = await this.service.findAllWithPaginate(request, {
       user: request.user,
     });
     rows.data = rows.data.map(function (item) {
