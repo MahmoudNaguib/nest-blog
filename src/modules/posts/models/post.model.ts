@@ -6,6 +6,7 @@ import {
   JoinColumn,
 } from 'typeorm';
 import { UserModel } from '../../users/models/user.model';
+import { SectionModel } from '../../sections/models/section.model';
 
 @Entity('posts')
 export class PostModel {
@@ -17,6 +18,10 @@ export class PostModel {
 
   @Column()
   content: string;
+
+  @ManyToOne((type) => SectionModel, (section) => section.posts)
+  @JoinColumn({ name: 'section_id' })
+  section?: SectionModel;
 
   @ManyToOne((type) => UserModel, (user) => user.posts)
   @JoinColumn({ name: 'user_id' })

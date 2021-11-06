@@ -26,6 +26,7 @@ export class UserModel {
 
   @Column()
   token?: string;
+
   @OneToMany((type) => PostModel, (post) => post.user)
   posts?: PostModel[];
 

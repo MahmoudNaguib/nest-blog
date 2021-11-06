@@ -1,6 +1,6 @@
-import { UserModel as Model } from '../models/user.model';
+import { SectionModel as Model } from '../models/section.model';
 
-export class TinyUserResource {
+export class TinySectionResource {
   public type = 'users';
   public row?: Model;
   public relationships?: string;
@@ -9,7 +9,7 @@ export class TinyUserResource {
   }
   toArray() {
     return {
-      name: this.row.name,
+      title: this.row.title,
     };
   }
 }

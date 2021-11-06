@@ -1,14 +1,14 @@
 import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
-import { PostsModule } from './modules/posts/posts.module';
-import { UsersModule } from './modules/users/users.module';
-import { HomeModule } from './modules/home/home.module';
 import { AuthMiddleware } from './middlewares/auth.middleware';
 import { ProfileController } from './modules/users/controllers/profile.controller';
 import { MyPostsController } from './modules/posts/controllers/my-posts.controller';
-import { UserModel } from './modules/users/models/user.model';
-import { PostModel } from './modules/posts/models/post.model';
+
+import { HomeModule } from './modules/home/home.module';
+import { PostsModule } from './modules/posts/posts.module';
+import { UsersModule } from './modules/users/users.module';
+import { SectionsModule } from './modules/sections/sections.module';
 
 @Module({
   imports: [
@@ -26,9 +26,10 @@ import { PostModel } from './modules/posts/models/post.model';
       logger: 'advanced-console',
       logging: ['warn', 'error'],
     }),
+    HomeModule,
     UsersModule,
     PostsModule,
-    HomeModule,
+    SectionsModule,
   ],
 })
 export class AppModule implements NestModule {

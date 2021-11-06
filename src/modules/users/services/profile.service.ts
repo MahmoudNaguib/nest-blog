@@ -9,15 +9,15 @@ import { Repository } from 'typeorm';
 import { Pagination, PaginationOptionsInterface } from '../../../paginate';
 ///////////////////////////////////////////////////////////////////////////////
 import * as bcrypt from 'bcrypt';
-import { UserModel } from '../models/user.model';
 import { ValidationException } from '../../../exceptions/validation.exception';
 import { EditProfileRequest } from '../requests/profile/edit-profile.request';
 import { ChangePassowrdRequest } from '../requests/profile/change-passowrd.request';
+import { UserModel as Model } from '../models/user.model';
 @Injectable()
 export class ProfileService {
   constructor(
-    @InjectRepository(UserModel)
-    private readonly repository: Repository<UserModel>,
+    @InjectRepository(Model)
+    private readonly repository: Repository<Model>,
   ) {}
 
   async editProfile(id: number, record: EditProfileRequest) {

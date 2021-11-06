@@ -1,9 +1,9 @@
 import Faker from 'faker';
 import { define } from 'typeorm-seeding';
-import { UserModel } from '../models/user.model';
+import { UserModel as Model } from '../models/user.model';
 
-define(UserModel, (faker: typeof Faker) => {
-  const row = new UserModel();
+define(Model, (faker: typeof Faker) => {
+  const row = new Model();
   const email = faker.internet.email();
   row.name = faker.name.findName();
   row.password = 'demo@12345';

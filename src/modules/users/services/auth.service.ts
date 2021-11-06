@@ -3,29 +3,22 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 ///////////////////////////////////////////////////////////////////////////////
 import * as bcrypt from 'bcrypt';
-import { UserModel } from '../models/user.model';
 import { RegisterRequest } from '../requests/auth/register.request';
 import { LoginRequest } from '../requests/auth/login.request';
-import { ValidationException } from '../../../exceptions/validation.exception';
+import { UserModel as Model } from '../models/user.model';
 
 @Injectable()
 export class AuthService {
   constructor(
-    @InjectRepository(UserModel)
-    private readonly repository: Repository<UserModel>,
+    @InjectRepository(Model)
+    private readonly repository: Repository<Model>,
   ) {}
 
-  async register(record: RegisterRequest): Promise<UserModel> {
-    const emailExist = await this.repository.findOne({ email: record.email });
-    if (emailExist) {
-      throw new ValidationException({
-        email: 'There is exist a user with the same email',
-      });
-    }
+  async register(record: RegisterRequest): Promise<Model> {
     return await this.repository.save(this.repository.create(record));
   }
 
-  async login(record: LoginRequest): Promise<UserModel> {
+  async login(record: LoginRequest): Promise<Model> {
     const row = await this.repository.findOne({ email: record.email });
     if (!row) {
       throw new ForbiddenException('There is no account with this email');
@@ -36,7 +29,7 @@ export class AuthService {
     return await this.repository.save(row);
   }
 
-  async findUserByToken(token: string): Promise<UserModel> {
+  async findUserByToken(token: string): Promise<Model> {
     return await this.repository.findOne({ token: token });
   }
 

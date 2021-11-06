@@ -1,8 +1,8 @@
-import { UserModel as Model } from '../models/user.model';
 import { getDate } from '../../../helpers/helpers';
+import { SectionModel as Model } from '../models/section.model';
 
-export class UserResource {
-  public type = 'users';
+export class SectionResource {
+  public type = 'sections';
   public row?: Model;
   public relationships?: string;
   constructor(row: Model) {
@@ -13,8 +13,7 @@ export class UserResource {
       type: this.type,
       id: parseInt(this.row.id.toString()),
       attributes: {
-        name: this.row.name,
-        email: this.row.email,
+        title: this.row.title,
         created_at: getDate(this.row.created_at),
         updated_at: getDate(this.row.updated_at),
       },

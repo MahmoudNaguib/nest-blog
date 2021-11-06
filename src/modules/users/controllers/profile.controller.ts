@@ -1,17 +1,16 @@
 import { Controller, Put, Patch, Request, Body, Get } from '@nestjs/common';
-/////////////////////////////////////////////////
-import { ProfileService } from '../services/profile.service';
-import { UserResource } from '../resources/user.resource';
 import { EditProfileRequest } from '../requests/profile/edit-profile.request';
 import { ChangePassowrdRequest } from '../requests/profile/change-passowrd.request';
+import { ProfileService as Service } from '../services/profile.service';
+import { UserResource as Resource } from '../resources/user.resource';
 
 @Controller('api/profile')
 export class ProfileController {
-  constructor(private readonly service: ProfileService) {}
+  constructor(private readonly service: Service) {}
 
   @Get('/')
   index(@Request() request) {
-    return { data: new UserResource(request.user).toArray() };
+    return { data: new Resource(request.user).toArray() };
   }
 
   @Patch('edit')
@@ -19,7 +18,7 @@ export class ProfileController {
     const row = await this.service.editProfile(request.user.id, record);
     return {
       message: 'Updated successfully',
-      data: new UserResource(row).toArray(),
+      data: new Resource(row).toArray(),
       token: row.token,
     };
   }
