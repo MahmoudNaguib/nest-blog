@@ -4,14 +4,22 @@ import {
   PrimaryGeneratedColumn,
   ManyToOne,
   JoinColumn,
+  OneToMany,
 } from 'typeorm';
 import { UserModel } from '../../users/models/user.model';
 import { SectionModel } from '../../sections/models/section.model';
+import { CommentModel } from '../../comments/models/comment.model';
 
 @Entity('posts')
 export class PostModel {
   @PrimaryGeneratedColumn()
   id: number;
+
+  @Column()
+  user_id: number;
+
+  @Column()
+  section_id: number;
 
   @Column()
   title: string;
@@ -26,6 +34,9 @@ export class PostModel {
   @ManyToOne((type) => UserModel, (user) => user.posts)
   @JoinColumn({ name: 'user_id' })
   user?: UserModel;
+
+  @OneToMany((type) => CommentModel, (comment) => comment.post)
+  comments?: CommentModel[];
 
   @Column()
   created_at: Date;

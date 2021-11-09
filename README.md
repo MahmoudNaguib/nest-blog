@@ -43,6 +43,13 @@ $ npm run start:dev
 
 # production mode
 $ npm run start:prod
+
+# Run database migration
+$ npm run typeorm migration:run
+
+# Run database seeders
+$ npm run seed DummySeeder
+
 ```
 
 ## Test

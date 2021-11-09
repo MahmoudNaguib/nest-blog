@@ -1,7 +1,7 @@
 import { PipeTransform, Injectable, ArgumentMetadata } from '@nestjs/common';
 import { validate } from 'class-validator';
 import { plainToClass } from 'class-transformer';
-import { ValidationException } from '../exceptions/validation.exception';
+import { CustomValidationException } from '../exceptions/CustomValidation.exception';
 
 @Injectable()
 export class ValidationPipe implements PipeTransform<any> {
@@ -20,7 +20,7 @@ export class ValidationPipe implements PipeTransform<any> {
           ).join(', ');
         }
       }
-      throw new ValidationException(customErrors);
+      throw new CustomValidationException(customErrors);
     }
     return value;
   }

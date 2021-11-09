@@ -9,7 +9,7 @@ import { Repository } from 'typeorm';
 import { Pagination, PaginationOptionsInterface } from '../../../paginate';
 ///////////////////////////////////////////////////////////////////////////////
 import * as bcrypt from 'bcrypt';
-import { ValidationException } from '../../../exceptions/validation.exception';
+import { CustomValidationException } from '../../../exceptions/CustomValidation.exception';
 import { EditProfileRequest } from '../requests/profile/edit-profile.request';
 import { ChangePassowrdRequest } from '../requests/profile/change-passowrd.request';
 import { UserModel as Model } from '../models/user.model';
@@ -31,7 +31,7 @@ export class ProfileService {
         id: Not(row.id),
       });
       if (emailExist) {
-        throw new ValidationException({
+        throw new CustomValidationException({
           email: 'There is exist a user with the same email',
         });
       }

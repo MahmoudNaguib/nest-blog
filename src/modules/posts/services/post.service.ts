@@ -6,6 +6,7 @@ import { RequestQueryRequest } from '../../../requests/request-query.request';
 import { PostModel as Model } from '../models/post.model';
 import { CreateRequest } from '../requests/create.request';
 import { UpdateRequest } from '../requests/update.request';
+import { PostFilter } from '../filters/post.filter';
 
 @Injectable()
 export class PostService {
@@ -20,6 +21,8 @@ export class PostService {
     conditions?: any,
   ): Promise<Pagination<Model>> {
     const { page, limit, orderField } = new RequestQueryRequest(request);
+    const { filterFields } = new PostFilter(request);
+    conditions = { ...conditions, ...filterFields };
     const [results, total] = await this.repository.findAndCount({
       take: limit,
       skip: (page - 1) * limit,
@@ -27,15 +30,18 @@ export class PostService {
       relations: ['user', 'section'],
       where: conditions,
     });
-    return new Pagination<Model>({
-      results,
-      meta: {
-        current_page: page,
-        per_page: limit,
-        total: total,
-        resource: this.resourceName,
+    return new Pagination<Model>(
+      {
+        results,
+        meta: {
+          current_page: page,
+          per_page: limit,
+          total: total,
+          resource: this.resourceName,
+        },
       },
-    });
+      request,
+    );
   }
 
   async findAll(): Promise<Model[]> {
@@ -56,7 +62,9 @@ export class PostService {
   }
 
   async findOne(id: number): Promise<Model> {
-    const row = await this.repository.findOne(id, { relations: ['user'] });
+    const row = await this.repository.findOne(id, {
+      relations: ['user', 'section'],
+    });
     if (!row) {
       throw new NotFoundException('Record is not exist');
     }

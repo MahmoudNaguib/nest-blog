@@ -1,6 +1,6 @@
 import { HttpException } from '@nestjs/common';
 
-export class ValidationException extends HttpException {
+export class CustomValidationException extends HttpException {
   public errors;
   constructor(errors: any) {
     super(

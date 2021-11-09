@@ -16,7 +16,10 @@ export class Pagination<PaginationEntity> {
     previous?: string;
   };
 
-  constructor(paginationResults: PaginationResultInterface<PaginationEntity>) {
+  constructor(
+    paginationResults: PaginationResultInterface<PaginationEntity>,
+    request?: any,
+  ) {
     this.data = paginationResults.results;
     this.meta = {
       total: paginationResults.meta.total,
@@ -37,10 +40,33 @@ export class Pagination<PaginationEntity> {
     } else {
       nextPage = 0;
     }
+    /*if (!request) {
+      const nextValue =
+        nextPage != 0 ? this.meta.resource + '?page=' + nextPage : null;
+      const prevValue =
+        prevPage > 0 ? this.meta.resource + '?page=' + prevPage : null;
+    } else {
+      const queryParameters = request.query;
+      if (queryParameters) {
+        const excepted = ['page', 'limit', 'orderBy', 'orderType'];
+        const filterFields = {};
+        for (const key in queryParameters) {
+          if (!excepted.includes(key)) {
+            //////////////// Do your logic
+            filterFields[key] = queryParameters[key];
+            /////////////////////////////
+          }
+        }
+      }
+    }*/
+    const nextValue =
+      nextPage != 0 ? this.meta.resource + '?page=' + nextPage : null;
+    const prevValue =
+      prevPage > 0 ? this.meta.resource + '?page=' + prevPage : null;
 
     this.links = {
-      previous: prevPage > 0 ? this.meta.resource + '?page=' + prevPage : null,
-      next: nextPage != 0 ? this.meta.resource + '?page=' + nextPage : null,
+      previous: prevValue,
+      next: nextValue,
     };
   }
 }

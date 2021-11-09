@@ -6,12 +6,11 @@ import { ProfileController } from './controllers/profile.controller';
 
 import { AuthService } from './services/auth.service';
 import { ProfileService } from './services/profile.service';
-import { UserService } from './services/user.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([UserModel])],
   controllers: [AuthController, ProfileController],
-  providers: [UserService, AuthService, ProfileService],
+  providers: [AuthService, ProfileService],
   exports: [AuthService],
 })
 export class UsersModule {}

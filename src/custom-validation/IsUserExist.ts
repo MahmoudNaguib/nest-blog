@@ -8,9 +8,12 @@ import {
 import { getRepository } from 'typeorm';
 import { UserModel } from '../modules/users/models/user.model';
 
-/*@IsUserExist({
+/*
+Usage
+@IsUserExist({
     message: '$property value already exists',
-  })*/
+  })
+*/
 
 @ValidatorConstraint({ async: true })
 export class IsUserAlreadyExistConstraint

@@ -1,4 +1,9 @@
-import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
+import {
+  Module,
+  NestModule,
+  MiddlewareConsumer,
+  RequestMethod,
+} from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { AuthMiddleware } from './middlewares/auth.middleware';
@@ -9,6 +14,8 @@ import { HomeModule } from './modules/home/home.module';
 import { PostsModule } from './modules/posts/posts.module';
 import { UsersModule } from './modules/users/users.module';
 import { SectionsModule } from './modules/sections/sections.module';
+import { CommentsModule } from './modules/comments/comments.module';
+import { CommentsController } from './modules/comments/controllers/comments.controller';
 
 @Module({
   imports: [
@@ -30,12 +37,14 @@ import { SectionsModule } from './modules/sections/sections.module';
     UsersModule,
     PostsModule,
     SectionsModule,
+    CommentsModule,
   ],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(AuthMiddleware)
-      .forRoutes(ProfileController, MyPostsController);
+      .exclude({ path: 'api/comments', method: RequestMethod.GET }) // exclude routes for listing comments
+      .forRoutes(ProfileController, MyPostsController, CommentsController);
   }
 }

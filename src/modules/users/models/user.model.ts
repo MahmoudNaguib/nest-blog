@@ -9,6 +9,7 @@ import {
 ////////////////////////////////////////
 import * as bcrypt from 'bcrypt';
 import { PostModel } from '../../posts/models/post.model';
+import { CommentModel } from '../../comments/models/comment.model';
 
 @Entity('users')
 export class UserModel {
@@ -29,6 +30,9 @@ export class UserModel {
 
   @OneToMany((type) => PostModel, (post) => post.user)
   posts?: PostModel[];
+
+  @OneToMany((type) => CommentModel, (comment) => comment.user)
+  comments?: CommentModel[];
 
   @Column()
   created_at: Date;

@@ -1,10 +1,10 @@
 import { MigrationInterface, QueryRunner, Table, TableIndex } from 'typeorm';
 
-export class PostsTable1635717573448 implements MigrationInterface {
+export class CommentsTable1635717573450 implements MigrationInterface {
   async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'posts',
+        name: 'comments',
         columns: [
           {
             name: 'id',
@@ -15,7 +15,7 @@ export class PostsTable1635717573448 implements MigrationInterface {
             generationStrategy: 'increment',
           },
           {
-            name: 'section_id',
+            name: 'post_id',
             type: 'bigint',
             length: '20',
             default: null,
@@ -25,13 +25,6 @@ export class PostsTable1635717573448 implements MigrationInterface {
             name: 'user_id',
             type: 'bigint',
             length: '20',
-            default: null,
-            isNullable: true,
-          },
-          {
-            name: 'title',
-            type: 'varchar',
-            length: '200',
             default: null,
             isNullable: true,
           },
@@ -56,17 +49,17 @@ export class PostsTable1635717573448 implements MigrationInterface {
       }),
     );
 
-    await queryRunner.createIndices('posts', [
+    await queryRunner.createIndices('comments', [
       new TableIndex({
         columnNames: ['user_id'],
       }),
       new TableIndex({
-        columnNames: ['section_id'],
+        columnNames: ['post_id'],
       }),
     ]);
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('posts');
+    await queryRunner.dropTable('comments');
   }
 }
