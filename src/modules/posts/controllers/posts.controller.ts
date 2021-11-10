@@ -10,7 +10,7 @@ import { PostResource } from '../resources/post.resource';
 export class PostsController {
   constructor(private readonly service: PostService) {}
   @Get()
-  async index(@Request() request): Promise<Pagination<PostModel>> {
+  async index(@Request() request): Promise<Pagination> {
     const rows = await this.service.findAllWithPaginate(request);
     rows.data = rows.data.map(function (item) {
       return new PostResource(item).toArray();

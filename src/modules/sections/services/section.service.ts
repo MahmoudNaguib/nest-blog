@@ -9,16 +9,12 @@ import { UpdateRequest } from '../requests/update.request';
 
 @Injectable()
 export class SectionService {
-  private readonly resourceName = 'sections';
   constructor(
     @InjectRepository(Model)
     private readonly repository: Repository<Model>,
   ) {}
 
-  async findAllWithPaginate(
-    request,
-    conditions?: any,
-  ): Promise<Pagination<Model>> {
+  async findAllWithPaginate(request, conditions?: any): Promise<Pagination> {
     const { page, limit, orderField } = new RequestQueryRequest(request);
     const [results, total] = await this.repository.findAndCount({
       take: limit,
@@ -27,15 +23,17 @@ export class SectionService {
       relations: ['user'],
       where: conditions,
     });
-    return new Pagination<Model>({
-      results,
-      meta: {
-        current_page: page,
-        per_page: limit,
-        total: total,
-        resource: this.resourceName,
+    return new Pagination(
+      {
+        results,
+        meta: {
+          current_page: page,
+          per_page: limit,
+          total: total,
+        },
       },
-    });
+      request,
+    );
   }
 
   async findAll(): Promise<Model[]> {

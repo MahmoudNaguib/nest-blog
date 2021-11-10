@@ -1,72 +1,35 @@
-import { PaginationResultInterface } from './pagination.results.interface';
-
-export class Pagination<PaginationEntity> {
+export class Pagination {
   public data: any[];
   /////////////////////////// other fields
   public meta: {
     current_page?: number;
     per_page?: number;
     total?: number;
-    resource?: string;
     page_total?: number;
+    from?: number;
+    to?: number;
+    last_page?: number;
   };
 
-  public links: {
-    next?: string;
-    previous?: string;
-  };
-
-  constructor(
-    paginationResults: PaginationResultInterface<PaginationEntity>,
-    request?: any,
-  ) {
+  constructor(paginationResults, request?: any) {
     this.data = paginationResults.results;
+    const total = paginationResults.meta.total;
+    const current_page = parseInt(
+      paginationResults.meta.current_page.toString(),
+    );
+    const per_page = parseInt(paginationResults.meta.per_page.toString());
+    const page_total = paginationResults.results.length;
+    const from = (current_page - 1) * per_page + 1;
+    const to = from + page_total - 1;
+    const last_page = Math.ceil(total / per_page);
     this.meta = {
-      total: paginationResults.meta.total,
-      current_page: parseInt(paginationResults.meta.current_page.toString()),
-      per_page: parseInt(paginationResults.meta.per_page.toString()),
-      resource: paginationResults.meta.resource,
-      page_total: paginationResults.results.length,
-    };
-
-    const prevPage = parseInt(this.meta.current_page.toString()) - 1;
-    let nextPage;
-    if (
-      this.meta.total >
-      parseInt(this.meta.per_page.toString()) *
-        parseInt(this.meta.current_page.toString())
-    ) {
-      nextPage = parseInt(this.meta.current_page.toString()) + 1;
-    } else {
-      nextPage = 0;
-    }
-    /*if (!request) {
-      const nextValue =
-        nextPage != 0 ? this.meta.resource + '?page=' + nextPage : null;
-      const prevValue =
-        prevPage > 0 ? this.meta.resource + '?page=' + prevPage : null;
-    } else {
-      const queryParameters = request.query;
-      if (queryParameters) {
-        const excepted = ['page', 'limit', 'orderBy', 'orderType'];
-        const filterFields = {};
-        for (const key in queryParameters) {
-          if (!excepted.includes(key)) {
-            //////////////// Do your logic
-            filterFields[key] = queryParameters[key];
-            /////////////////////////////
-          }
-        }
-      }
-    }*/
-    const nextValue =
-      nextPage != 0 ? this.meta.resource + '?page=' + nextPage : null;
-    const prevValue =
-      prevPage > 0 ? this.meta.resource + '?page=' + prevPage : null;
-
-    this.links = {
-      previous: prevValue,
-      next: nextValue,
+      total: total,
+      current_page: current_page,
+      per_page: per_page,
+      page_total: page_total,
+      from: from,
+      to: to,
+      last_page: last_page,
     };
   }
 }

@@ -6,22 +6,18 @@ import { RequestQueryRequest } from '../../../requests/request-query.request';
 import { PostModel as Model } from '../models/post.model';
 import { CreateRequest } from '../requests/create.request';
 import { UpdateRequest } from '../requests/update.request';
-import { PostFilter } from '../filters/post.filter';
+import { PostFilter as Filter } from '../filters/post.filter';
 
 @Injectable()
 export class PostService {
-  private readonly resourceName = 'posts';
   constructor(
     @InjectRepository(Model)
     private readonly repository: Repository<Model>,
   ) {}
 
-  async findAllWithPaginate(
-    request,
-    conditions?: any,
-  ): Promise<Pagination<Model>> {
+  async findAllWithPaginate(request, conditions?: any): Promise<Pagination> {
     const { page, limit, orderField } = new RequestQueryRequest(request);
-    const { filterFields } = new PostFilter(request);
+    const { filterFields } = new Filter(request);
     conditions = { ...conditions, ...filterFields };
     const [results, total] = await this.repository.findAndCount({
       take: limit,
@@ -30,14 +26,13 @@ export class PostService {
       relations: ['user', 'section'],
       where: conditions,
     });
-    return new Pagination<Model>(
+    return new Pagination(
       {
         results,
         meta: {
           current_page: page,
           per_page: limit,
           total: total,
-          resource: this.resourceName,
         },
       },
       request,

@@ -15,6 +15,12 @@ export class CommentModel {
   id: number;
 
   @Column()
+  user_id: number;
+
+  @Column()
+  post_id: number;
+
+  @Column()
   content: string;
 
   @ManyToOne((type) => UserModel, (user) => user.comments)

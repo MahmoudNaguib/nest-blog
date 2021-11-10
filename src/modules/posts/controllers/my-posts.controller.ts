@@ -22,7 +22,7 @@ export class MyPostsController {
   constructor(private readonly service: Service) {}
 
   @Get()
-  async index(@Request() request): Promise<Pagination<Model>> {
+  async index(@Request() request): Promise<Pagination> {
     const rows = await this.service.findAllWithPaginate(request, {
       user: request.user,
     });

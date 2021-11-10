@@ -5,20 +5,19 @@ import { Pagination } from '../../../paginate';
 import { RequestQueryRequest } from '../../../requests/request-query.request';
 import { CommentModel as Model } from '../models/comment.model';
 import { CreateRequest } from '../requests/create.request';
+import { CommentFilter as Filter } from '../filters/comment.filter';
 
 @Injectable()
 export class CommentService {
-  private readonly resourceName = 'comments';
   constructor(
     @InjectRepository(Model)
     private readonly repository: Repository<Model>,
   ) {}
 
-  async findAllWithPaginate(
-    request,
-    conditions?: any,
-  ): Promise<Pagination<Model>> {
+  async findAllWithPaginate(request, conditions?: any): Promise<Pagination> {
     const { page, limit, orderField } = new RequestQueryRequest(request);
+    const { filterFields } = new Filter(request);
+    conditions = { ...conditions, ...filterFields };
     const [results, total] = await this.repository.findAndCount({
       take: limit,
       skip: (page - 1) * limit,
@@ -26,15 +25,17 @@ export class CommentService {
       relations: ['user', 'post'],
       where: conditions,
     });
-    return new Pagination<Model>({
-      results,
-      meta: {
-        current_page: page,
-        per_page: limit,
-        total: total,
-        resource: this.resourceName,
+    return new Pagination(
+      {
+        results,
+        meta: {
+          current_page: page,
+          per_page: limit,
+          total: total,
+        },
       },
-    });
+      request,
+    );
   }
 
   async findAll(): Promise<Model[]> {
