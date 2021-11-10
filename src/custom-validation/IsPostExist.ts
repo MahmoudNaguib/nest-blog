@@ -6,19 +6,19 @@ import {
   ValidationArguments,
 } from 'class-validator';
 import { getRepository } from 'typeorm';
-import { SectionModel } from '../modules/sections/models/section.model';
+import { PostModel } from '../modules/posts/models/post.model';
 
 /*
 Usage
-@IsSectionExist({
-    message: 'Section value is not exist',
+@IsPostExist({
+    message: 'Post value is not exist',
   })
 */
 
 @ValidatorConstraint({ async: true })
-export class IsSectionExistConstraint implements ValidatorConstraintInterface {
+export class IsPostExistConstraint implements ValidatorConstraintInterface {
   validate(value: any, args: ValidationArguments) {
-    return getRepository(SectionModel)
+    return getRepository(PostModel)
       .findOne(value)
       .then((record) => {
         if (record) return true;
@@ -27,14 +27,14 @@ export class IsSectionExistConstraint implements ValidatorConstraintInterface {
   }
 }
 
-export function IsSectionExist(validationOptions?: ValidationOptions) {
+export function IsPostExist(validationOptions?: ValidationOptions) {
   return function (object: any, propertyName: string) {
     registerDecorator({
       target: object.constructor,
       propertyName: propertyName,
       options: validationOptions,
       constraints: [],
-      validator: IsSectionExistConstraint,
+      validator: IsPostExistConstraint,
     });
   };
 }

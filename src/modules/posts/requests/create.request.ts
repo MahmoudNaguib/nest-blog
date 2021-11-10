@@ -4,21 +4,15 @@ import { SectionModel } from '../../sections/models/section.model';
 import { IsSectionExist } from '../../../custom-validation/IsSectionExist';
 
 export class CreateRequest {
-  @MinLength(10, {
-    message: `$property must be min length string $constraint1`,
-  })
-  @IsString()
-  @IsNotEmpty()
+  @MinLength(5)
   title: string;
 
-  @IsString()
-  @IsNotEmpty()
+  @MinLength(5)
   content: string;
 
   @IsSectionExist({
-    message: 'Field $property value is not exists',
+    message: 'Section value is not exist',
   })
-  @IsNumber()
   @IsNotEmpty()
   section_id: number;
 

@@ -22,7 +22,7 @@ export class MyPostsController {
   constructor(private readonly service: Service) {}
 
   @Get()
-  async index(@Request() request): Promise<Pagination> {
+  async index(@Request() request): Promise<Pagination<Model>> {
     const rows = await this.service.findAllWithPaginate(request, {
       user: request.user,
     });
@@ -52,7 +52,15 @@ export class MyPostsController {
   }
 
   @Patch(':id')
-  async update(@Param('id') id, @Body() record: UpdateRequest) {
+  async update(
+    @Param('id') id,
+    @Body() record: UpdateRequest,
+    @Request() request,
+  ) {
+    record.user = request.user;
+    record.section = await getRepository(SectionModel).findOne({
+      id: request.body.section_id,
+    });
     const row = await this.service.update(id, record);
     return {
       message: 'Updated successfully',

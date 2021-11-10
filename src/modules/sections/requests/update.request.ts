@@ -1,6 +1,5 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { MinLength } from 'class-validator';
 export class UpdateRequest {
-  @IsNotEmpty()
-  @IsString()
+  @MinLength(3)
   title: string;
 }

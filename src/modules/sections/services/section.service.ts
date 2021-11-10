@@ -14,7 +14,10 @@ export class SectionService {
     private readonly repository: Repository<Model>,
   ) {}
 
-  async findAllWithPaginate(request, conditions?: any): Promise<Pagination> {
+  async findAllWithPaginate(
+    request,
+    conditions?: any,
+  ): Promise<Pagination<Model>> {
     const { page, limit, orderField } = new RequestQueryRequest(request);
     const [results, total] = await this.repository.findAndCount({
       take: limit,

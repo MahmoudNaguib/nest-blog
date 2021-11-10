@@ -19,7 +19,7 @@ import { SectionResource as Resource } from '../resources/section.resource';
 export class SectionsController {
   constructor(private readonly service: Service) {}
   @Get()
-  async index(@Request() request): Promise<Pagination> {
+  async index(@Request() request): Promise<Pagination<Model>> {
     const rows = await this.service.findAllWithPaginate(request);
     rows.data = rows.data.map(function (item) {
       return new Resource(item).toArray();

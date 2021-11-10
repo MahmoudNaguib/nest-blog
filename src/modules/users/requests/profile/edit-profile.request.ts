@@ -1,13 +1,11 @@
 import { IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
 export class EditProfileRequest {
-  @IsNotEmpty()
-  @IsString()
   @MinLength(3)
   name: string;
 
-  @IsNotEmpty()
-  @IsString()
   @IsEmail()
+  @MinLength(5)
   email: string;
-  token?: string;
+
+  //token?: string;
 }

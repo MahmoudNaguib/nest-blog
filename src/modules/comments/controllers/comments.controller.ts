@@ -14,7 +14,6 @@ import { CommentService as Service } from '../services/comment.service';
 import { CommentModel as Model } from '../models/comment.model';
 import { CommentResource as Resource } from '../resources/comment.resource';
 import { getRepository } from 'typeorm';
-import { SectionModel } from '../../sections/models/section.model';
 import { PostModel } from '../../posts/models/post.model';
 
 @Controller('api/comments')
@@ -22,7 +21,7 @@ export class CommentsController {
   constructor(private readonly service: Service) {}
 
   @Get()
-  async index(@Request() request): Promise<Pagination> {
+  async index(@Request() request): Promise<Pagination<Model>> {
     const rows = await this.service.findAllWithPaginate(request);
     rows.data = rows.data.map(function (item) {
       return new Resource(item).toArray();

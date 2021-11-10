@@ -1,4 +1,4 @@
-export class Pagination {
+export class Pagination<PaginationEntity> {
   public data: any[];
   /////////////////////////// other fields
   public meta: {

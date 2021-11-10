@@ -1,21 +1,15 @@
-import { IsNotEmpty, IsString, MinLength } from 'class-validator';
+import { MinLength } from 'class-validator';
 import { Match } from '../../../../custom-validation/match.decorator';
 export class ChangePassowrdRequest {
-  @IsNotEmpty()
-  @IsString()
-  @MinLength(8)
+  @MinLength(5)
   old_password: string;
 
-  @IsNotEmpty()
-  @IsString()
-  @MinLength(8)
+  @MinLength(5)
   password: string;
 
-  @IsNotEmpty()
-  @IsString()
-  @MinLength(8)
   @Match('password')
+  @MinLength(5)
   password_confirmation?: string;
 
-  token?: string;
+  // token?: string;
 }
