@@ -8,6 +8,8 @@ import {
   Request,
   Body,
 } from '@nestjs/common';
+const fs = require('fs');
+
 import { getRepository } from 'typeorm';
 import { Pagination } from '../../../paginate';
 import { CreateRequest } from '../requests/create.request';
@@ -16,6 +18,12 @@ import { PostService as Service } from '../services/post.service';
 import { PostModel as Model } from '../models/post.model';
 import { PostResource as Resource } from '../resources/post.resource';
 import { SectionModel } from '../../sections/models/section.model';
+import {
+  FileSystemStoredFile,
+  FormDataRequest,
+  MemoryStoredFile,
+} from 'nestjs-form-data';
+import { ResizeImage } from '../../../helpers/ResizeImage';
 
 @Controller('api/my-posts')
 export class MyPostsController {
@@ -39,7 +47,17 @@ export class MyPostsController {
   }
 
   @Post()
+  @FormDataRequest({
+    storage: FileSystemStoredFile,
+    fileSystemStoragePath: 'uploads',
+    autoDeleteFile: false,
+  })
   async create(@Body() record: CreateRequest, @Request() request) {
+    /*const image = await ResizeImage.resize(record.image.path, {
+      large: '800x480',
+      small: '200x150',
+    });
+    return image;*/
     record.user = request.user;
     record.section = await getRepository(SectionModel).findOne({
       id: request.body.section_id,
