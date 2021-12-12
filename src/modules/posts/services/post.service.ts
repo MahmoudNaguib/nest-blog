@@ -7,9 +7,14 @@ import { PostModel as Model } from '../models/post.model';
 import { CreateRequest } from '../requests/create.request';
 import { UpdateRequest } from '../requests/update.request';
 import { PostFilter as Filter } from '../filters/post.filter';
+import { ResizeImage } from '../../../helpers/ResizeImage';
 
 @Injectable()
 export class PostService {
+  public imageSizes = {
+    large: '600x360',
+    small: '200x150',
+  };
   constructor(
     @InjectRepository(Model)
     private readonly repository: Repository<Model>,
@@ -47,6 +52,17 @@ export class PostService {
   }
 
   async create(record: CreateRequest): Promise<Model> {
+    /////////// resize image
+    if (record.image != undefined) {
+      const image = await ResizeImage.resize(
+        record.image.path,
+        this.imageSizes,
+      );
+      if (image) {
+        record.image = image;
+      }
+    }
+    /////////////////
     return await this.repository.save(this.repository.create(record));
   }
 
@@ -55,6 +71,17 @@ export class PostService {
     if (!row) {
       throw new NotFoundException('Record is not exist');
     }
+    /////////// resize image
+    if (record.image != undefined) {
+      const image = await ResizeImage.resize(
+        record.image.path,
+        this.imageSizes,
+      );
+      if (image) {
+        record.image = image;
+      }
+    }
+    /////////////////
     this.repository.merge(row, record);
     return await this.repository.save(row);
   }

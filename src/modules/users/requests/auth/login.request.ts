@@ -4,6 +4,6 @@ export class LoginRequest {
   @MinLength(5)
   email: string;
 
-  @MinLength(5)
+  @MinLength(8)
   password: string;
 }

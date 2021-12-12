@@ -5,6 +5,8 @@ import {
   ManyToOne,
   JoinColumn,
   OneToMany,
+  BeforeInsert,
+  BeforeUpdate,
 } from 'typeorm';
 import { UserModel } from '../../users/models/user.model';
 import { SectionModel } from '../../sections/models/section.model';
@@ -26,6 +28,9 @@ export class PostModel {
 
   @Column()
   content: string;
+
+  @Column()
+  image?: string;
 
   @ManyToOne((type) => SectionModel, (section) => section.posts)
   @JoinColumn({ name: 'section_id' })

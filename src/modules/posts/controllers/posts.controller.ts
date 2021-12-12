@@ -1,9 +1,8 @@
 import { Controller, Get, Param, Request } from '@nestjs/common';
 import { Pagination } from '../../../paginate';
 /////////////////////////////////////////////////
-import { PostService } from '../services/post.service';
 import { PostModel as Model } from '../models/post.model';
-///////////////////////////////////////////////////
+import { PostService } from '../services/post.service';
 import { PostResource } from '../resources/post.resource';
 
 @Controller('api/posts')

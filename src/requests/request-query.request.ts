@@ -14,7 +14,7 @@ export class RequestQueryRequest {
       : 'id';
     const orderType = request.query.hasOwnProperty('orderType')
       ? request.query.orderType
-      : 'Desc';
+      : 'DESC';
     this.orderField = { [orderBy]: orderType };
     //////////////////////////////
     const queryParameters = request.query;

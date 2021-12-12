@@ -19,6 +19,7 @@ export class PostResource {
         section_id: parseInt(this.row.section.id.toString()),
         title: this.row.title,
         content: this.row.content,
+        image: this.row.image,
         created_at: getDate(this.row.created_at),
         updated_at: getDate(this.row.updated_at),
       },

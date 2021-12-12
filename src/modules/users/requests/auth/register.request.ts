@@ -13,11 +13,11 @@ export class RegisterRequest {
   @MinLength(5)
   email: string;
 
-  @MinLength(5)
+  @MinLength(8)
   password: string;
 
   @Match('password')
-  @MinLength(5)
+  @MinLength(8)
   password_confirmation?: string;
 
   token?: string;

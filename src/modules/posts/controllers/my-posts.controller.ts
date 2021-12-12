@@ -8,27 +8,21 @@ import {
   Request,
   Body,
 } from '@nestjs/common';
-const fs = require('fs');
-
+import { FormDataRequest } from 'nestjs-form-data';
 import { getRepository } from 'typeorm';
 import { Pagination } from '../../../paginate';
+import { ResizeImage } from '../../../helpers/ResizeImage';
+////////////////////////////////////////////////////////
 import { CreateRequest } from '../requests/create.request';
 import { UpdateRequest } from '../requests/update.request';
 import { PostService as Service } from '../services/post.service';
 import { PostModel as Model } from '../models/post.model';
 import { PostResource as Resource } from '../resources/post.resource';
 import { SectionModel } from '../../sections/models/section.model';
-import {
-  FileSystemStoredFile,
-  FormDataRequest,
-  MemoryStoredFile,
-} from 'nestjs-form-data';
-import { ResizeImage } from '../../../helpers/ResizeImage';
 
 @Controller('api/my-posts')
 export class MyPostsController {
   constructor(private readonly service: Service) {}
-
   @Get()
   async index(@Request() request): Promise<Pagination<Model>> {
     const rows = await this.service.findAllWithPaginate(request, {
@@ -47,17 +41,8 @@ export class MyPostsController {
   }
 
   @Post()
-  @FormDataRequest({
-    storage: FileSystemStoredFile,
-    fileSystemStoragePath: 'uploads',
-    autoDeleteFile: false,
-  })
+  @FormDataRequest()
   async create(@Body() record: CreateRequest, @Request() request) {
-    /*const image = await ResizeImage.resize(record.image.path, {
-      large: '800x480',
-      small: '200x150',
-    });
-    return image;*/
     record.user = request.user;
     record.section = await getRepository(SectionModel).findOne({
       id: request.body.section_id,
@@ -70,6 +55,7 @@ export class MyPostsController {
   }
 
   @Patch(':id')
+  @FormDataRequest()
   async update(
     @Param('id') id,
     @Body() record: UpdateRequest,

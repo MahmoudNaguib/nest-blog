@@ -41,6 +41,13 @@ export class PostsTable1635717573448 implements MigrationInterface {
             default: null,
           },
           {
+            name: 'image',
+            type: 'varchar',
+            length: '50',
+            default: null,
+            isNullable: true,
+          },
+          {
             name: 'created_at',
             length: '6',
             type: 'datetime',

@@ -8,12 +8,14 @@ import {
   Request,
   Body,
 } from '@nestjs/common';
-import { Pagination } from '../../../paginate';
-import { CreateRequest } from '../requests/create.request';
-import { CommentService as Service } from '../services/comment.service';
-import { CommentModel as Model } from '../models/comment.model';
-import { CommentResource as Resource } from '../resources/comment.resource';
 import { getRepository } from 'typeorm';
+import { Pagination } from '../../../paginate';
+import { FormDataRequest } from 'nestjs-form-data';
+/////////////////////////////////////
+import { CreateRequest } from '../requests/create.request';
+import { CommentModel as Model } from '../models/comment.model';
+import { CommentService as Service } from '../services/comment.service';
+import { CommentResource as Resource } from '../resources/comment.resource';
 import { PostModel } from '../../posts/models/post.model';
 
 @Controller('api/comments')
@@ -30,6 +32,7 @@ export class CommentsController {
   }
 
   @Post()
+  @FormDataRequest()
   async create(@Body() record: CreateRequest, @Request() request) {
     record.user = request.user;
     record.post = await getRepository(PostModel).findOne({

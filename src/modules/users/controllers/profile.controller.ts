@@ -1,4 +1,6 @@
 import { Controller, Put, Patch, Request, Body, Get } from '@nestjs/common';
+import { FormDataRequest } from 'nestjs-form-data';
+///////////////////////////////////////////////////////////////
 import { EditProfileRequest } from '../requests/profile/edit-profile.request';
 import { ChangePassowrdRequest } from '../requests/profile/change-passowrd.request';
 import { ProfileService as Service } from '../services/profile.service';
@@ -14,6 +16,7 @@ export class ProfileController {
   }
 
   @Patch('edit')
+  @FormDataRequest()
   async edit(@Request() request, @Body() record: EditProfileRequest) {
     const row = await this.service.editProfile(request.user.id, record);
     return {
@@ -24,6 +27,7 @@ export class ProfileController {
   }
 
   @Put('change-password')
+  @FormDataRequest()
   async ChangePassword(
     @Request() request,
     @Body() record: ChangePassowrdRequest,
