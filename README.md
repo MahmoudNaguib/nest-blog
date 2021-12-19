@@ -12,14 +12,14 @@
 
 Blog API using NestJS with the following features
 ```bash
-Users: Register/Login
-Authentication: Using token based return after successfull login. This token will send in header (Authorization:'Bearer {token}')
+**Users**: Register/Login
+**Authentication**: Using token based return after successfull login. This token will send in header (Authorization:'Bearer {token}')
 Token will be changes if user Logout/Edit Profile/Change password
 Edit Profile/Change password/Logout
-Posts Sections: List
-Posts : List / Details / Filter 
-My Posts: List/Details/Create/Edit/View/Delete
-Comments: List post comments / Create comments
+**Posts** Sections: List
+**Posts** : List / Details / Filter 
+**My Posts**: List/Details/Create/Edit/View/Delete
+**Comments**: List post comments / Create comments
 ```
 
 
