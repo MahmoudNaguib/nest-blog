@@ -26,7 +26,9 @@ Comments: List post comments / Create comments
 ## Installation
 
 ```bash
-$ Clone the project 
+$ git clone https://github.com/MahmoudNaguib/nest-blog.git
+$ cd nest-blog
+$ cp .env.example .env  // then update the database configuation 
 $ npm install
 ```
 
