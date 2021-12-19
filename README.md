@@ -10,7 +10,7 @@
 
 ## Description
 
-Blog using NestJS with the following features
+Blog API using NestJS with the following features
 ```bash
 Users: Register/Login
 Authentication: Using token based return after successfull login. This token will send in header (Authorization:'Bearer {token}')
