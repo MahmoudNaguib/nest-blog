@@ -28,6 +28,9 @@ export class UserModel {
   @Column()
   token?: string;
 
+  @Column()
+  image?: string;
+
   @OneToMany((type) => PostModel, (post) => post.user)
   posts?: PostModel[];
 

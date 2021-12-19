@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { FileSystemStoredFile, NestjsFormDataModule } from 'nestjs-form-data';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { FileSystemStoredFile, NestjsFormDataModule } from 'nestjs-form-data';
 ////////////////////////////////////////////////
 import { UserModel } from './models/user.model';
 import { AuthController } from './controllers/auth.controller';
@@ -13,7 +13,7 @@ import { ProfileService } from './services/profile.service';
   imports: [
     NestjsFormDataModule.config({
       storage: FileSystemStoredFile,
-      fileSystemStoragePath: 'uploads',
+      fileSystemStoragePath: 'public/uploads',
     }),
     TypeOrmModule.forFeature([UserModel]),
   ],

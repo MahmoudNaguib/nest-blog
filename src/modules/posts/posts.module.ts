@@ -11,7 +11,7 @@ import { PostService } from './services/post.service';
   imports: [
     NestjsFormDataModule.config({
       storage: FileSystemStoredFile,
-      fileSystemStoragePath: 'uploads',
+      fileSystemStoragePath: 'public/uploads',
     }),
     TypeOrmModule.forFeature([PostModel]),
   ],

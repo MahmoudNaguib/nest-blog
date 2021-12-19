@@ -10,7 +10,7 @@ import { SectionService } from './services/section.service';
   imports: [
     NestjsFormDataModule.config({
       storage: FileSystemStoredFile,
-      fileSystemStoragePath: 'uploads',
+      fileSystemStoragePath: 'public/uploads',
     }),
     TypeOrmModule.forFeature([SectionModel]),
   ],

@@ -11,7 +11,6 @@ import {
 import { FormDataRequest } from 'nestjs-form-data';
 import { getRepository } from 'typeorm';
 import { Pagination } from '../../../paginate';
-import { ResizeImage } from '../../../helpers/ResizeImage';
 ////////////////////////////////////////////////////////
 import { CreateRequest } from '../requests/create.request';
 import { UpdateRequest } from '../requests/update.request';

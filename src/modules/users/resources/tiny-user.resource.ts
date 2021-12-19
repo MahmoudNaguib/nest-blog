@@ -9,6 +9,7 @@ export class TinyUserResource {
   toArray() {
     return {
       name: this.row.name,
+      image: this.row.image,
     };
   }
 }

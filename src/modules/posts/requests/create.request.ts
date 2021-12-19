@@ -28,7 +28,6 @@ export class CreateRequest {
   })
   @IsNotEmpty()
   image: any;
-  //image: FileSystemStoredFile;
 
   section?: SectionModel;
 

@@ -10,7 +10,7 @@ import { CommentService } from './services/comment.service';
   imports: [
     NestjsFormDataModule.config({
       storage: FileSystemStoredFile,
-      fileSystemStoragePath: 'uploads',
+      fileSystemStoragePath: 'public/uploads',
     }),
     TypeOrmModule.forFeature([CommentModel]),
   ],

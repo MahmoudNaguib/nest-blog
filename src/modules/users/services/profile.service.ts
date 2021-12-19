@@ -6,7 +6,7 @@ import {
 import { Not } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Pagination, PaginationOptionsInterface } from '../../../paginate';
+import { ResizeImage } from '../../../helpers/ResizeImage';
 ///////////////////////////////////////////////////////////////////////////////
 import * as bcrypt from 'bcrypt';
 import { CustomValidationException } from '../../../exceptions/CustomValidation.exception';
@@ -15,6 +15,10 @@ import { ChangePassowrdRequest } from '../requests/profile/change-passowrd.reque
 import { UserModel as Model } from '../models/user.model';
 @Injectable()
 export class ProfileService {
+  public imageSizes = {
+    large: '300x300',
+    small: '150x150',
+  };
   constructor(
     @InjectRepository(Model)
     private readonly repository: Repository<Model>,
@@ -36,6 +40,17 @@ export class ProfileService {
         });
       }
     }
+    /////////// resize image
+    if (record.image != undefined) {
+      const image = await ResizeImage.resize(
+        record.image.path,
+        this.imageSizes,
+      );
+      if (image) {
+        record.image = image;
+      }
+    }
+    /////////////////
     this.repository.merge(row, record);
     /////////////////////// if any field changed it will update token
     return await this.repository.save(row);

@@ -3,7 +3,6 @@ import { Connection } from 'typeorm';
 import { PostModel as Model } from '../models/post.model';
 import { UserModel } from '../../users/models/user.model';
 import { SectionModel } from '../../sections/models/section.model';
-
 export class PostsSeeder implements Seeder {
   public async run(factory: Factory, connection: Connection): Promise<void> {
     console.log('\n Seeding posts');

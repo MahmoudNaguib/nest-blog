@@ -7,7 +7,7 @@ export class ResizeImage {
       const fileName = getRandomString(25) + '.png';
       for (const [key, value] of Object.entries(dimensions)) {
         const dimensions = value.split('x');
-        const path = 'uploads/' + key;
+        const path = 'public/uploads/' + key;
         const tempWidth = dimensions[0] != undefined ? dimensions[0] : 100;
         const width: number = +tempWidth;
         const tempHeight = dimensions[1] != undefined ? dimensions[1] : width;

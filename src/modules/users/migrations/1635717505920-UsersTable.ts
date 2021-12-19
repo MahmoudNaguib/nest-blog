@@ -50,6 +50,13 @@ export class UsersTable1635717505920 implements MigrationInterface {
             isNullable: true,
           },
           {
+            name: 'image',
+            type: 'varchar',
+            length: '50',
+            default: null,
+            isNullable: true,
+          },
+          {
             name: 'created_at',
             length: '6',
             type: 'datetime',

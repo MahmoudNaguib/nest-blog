@@ -15,6 +15,7 @@ export class UserResource {
       attributes: {
         name: this.row.name,
         email: this.row.email,
+        image: this.row.image,
         created_at: getDate(this.row.created_at),
         updated_at: getDate(this.row.updated_at),
       },

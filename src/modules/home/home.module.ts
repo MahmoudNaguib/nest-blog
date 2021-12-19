@@ -7,7 +7,7 @@ import { HomeController } from './home.controller';
   imports: [
     NestjsFormDataModule.config({
       storage: FileSystemStoredFile,
-      fileSystemStoragePath: 'uploads',
+      fileSystemStoragePath: 'public/uploads',
     }),
   ],
   controllers: [HomeController],
