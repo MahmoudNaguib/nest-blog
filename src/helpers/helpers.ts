@@ -1,5 +1,3 @@
-import * as bcrypt from 'bcrypt';
-
 export function getDate(field: Date): any {
   return field
     ? field.toJSON().slice(0, 10) + ' ' + field.toLocaleTimeString()

@@ -8,7 +8,7 @@ export class RequestQueryRequest {
     this.page = request.query.hasOwnProperty('page') ? request.query.page : 1;
     this.limit = request.query.hasOwnProperty('limit')
       ? request.query.limit
-      : 2;
+      : process.env.PAGE_LIMIT;
     const orderBy = request.query.hasOwnProperty('orderBy')
       ? request.query.orderBy
       : 'id';

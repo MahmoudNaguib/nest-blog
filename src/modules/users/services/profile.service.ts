@@ -42,10 +42,7 @@ export class ProfileService {
     }
     /////////// resize image
     if (record.image != undefined) {
-      const image = await ResizeImage.resize(
-        record.image.path,
-        this.imageSizes,
-      );
+      const image = ResizeImage.resize(record.image.path, this.imageSizes);
       if (image) {
         record.image = image;
       }

@@ -5,7 +5,6 @@ export class Pagination<PaginationEntity> {
     current_page?: number;
     per_page?: number;
     total?: number;
-    page_total?: number;
     from?: number;
     to?: number;
     last_page?: number;
@@ -26,7 +25,6 @@ export class Pagination<PaginationEntity> {
       total: total,
       current_page: current_page,
       per_page: per_page,
-      page_total: page_total,
       from: from,
       to: to,
       last_page: last_page,
