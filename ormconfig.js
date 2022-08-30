@@ -5,11 +5,10 @@ module.exports = {
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
-  entities: [__dirname + '/src/modules/**/models/*.ts'],
-  migrations: [__dirname + '/src/modules/**/migrations/*.ts'],
-  factories: [__dirname + '/src/modules/**/factories/*.ts'],
+  entities: [__dirname + '/src/Modules/**/Models/*.ts'],
+  migrations: [__dirname + '/src/Modules/**/Migrations/*.ts'],
+  factories: [__dirname + '/src/Modules/**/Factories/*.ts'],
   seeds: [
-    __dirname + '/src/modules/**/seeders/*.ts',
-    __dirname + '/src/seeders/*.ts',
+    __dirname + '/src/Seeders/DatabaseSeeder.ts',
   ],
 };

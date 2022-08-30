@@ -1,7 +1,7 @@
 //import { ValidationPipe } from '@nestjs/common';
-import { ValidationPipe } from './pipes/validation.pipe';
+import { ValidationPipe } from './Pipes/ValidationPipe';
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
+import { AppModule } from './AppModule';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from 'path';
 
@@ -21,6 +21,6 @@ async function bootstrap() {
     allowedHeaders: '*',
     origin: '*',
   });
-  await app.listen(3000);
+  await app.listen(process.env.APP_PORT);
 }
 bootstrap();

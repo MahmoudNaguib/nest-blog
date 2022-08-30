@@ -28,7 +28,7 @@ Comments: List post comments / Create comments
 ```bash
 $ git clone https://github.com/MahmoudNaguib/nest-blog.git
 $ cd nest-blog
-$ cp .env.example .env  // then update the database configuation 
+$ cp .env.example .env  // Update your environment variables 
 $ npm install
 ```
 
@@ -49,6 +49,8 @@ $ npm run migration
 
 # Run database seeders
 $ npm run seed
+
+URL: localhost:8000
 ```
 
 ## Default user
@@ -58,13 +60,19 @@ Password: demo@12345
 ```
 
 
-
-
-
 ## POSTMAN API
 ```bash
 https://documenter.getpostman.com/view/375068/UVRAJSzK
 ```
+```bash
+Add the following variables
+url=localhost:8000
+email=user1@demo.com
+password=demo@12345 
+```
+
+
+
 
 ## Serving uploaded 
 ```bash
