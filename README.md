@@ -5,22 +5,8 @@
 [circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
 [circleci-url]: https://circleci.com/gh/nestjs/nest
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
+  <p align="center">Blog Using NestJs and Mysql</p>
 
-
-## Description
-
-Blog API using NestJS with the following features
-```bash
-Users: Register/Login
-Authentication: Using token based return after successfull login. This token will send in header (Authorization:'Bearer {token}')
-Token will be changes if user Logout/Edit Profile/Change password
-Edit Profile/Change password/Logout
-Posts Sections: List
-Posts : List / Details / Filter 
-My Posts: List/Details/Create/Edit/View/Delete
-Comments: List post comments / Create comments
-```
 
 
 ## Installation
@@ -28,13 +14,25 @@ Comments: List post comments / Create comments
 ```bash
 $ git clone https://github.com/MahmoudNaguib/nest-blog.git
 $ cd nest-blog
-$ cp .env.example .env  // Update your environment variables 
+
+// Update your environment variables 
+$ cp .env.example .env  
+
 $ npm install
+
+// Give write access to public/uploads
+$ sudo chmod -R 777 public/uploads 
 ```
 
 ## Running the app
 
 ```bash
+# Run database migration
+$ npm run migration
+
+# Run database seeders
+$ npm run seed
+
 # development
 $ npm run start
 
@@ -44,14 +42,30 @@ $ npm run start:dev
 # production mode
 $ npm run start:prod
 
-# Run database migration
-$ npm run migration
-
-# Run database seeders
-$ npm run seed
-
 URL: localhost:8000
 ```
+
+## Features
+
+```bash
+- Users: Register/Login
+
+- Authentication: Using token based return after successfull login. This token will send in header (Authorization:'Bearer {token}')
+
+- Token will be changes if user Logout/Edit Profile/Change password
+
+- Edit Profile/Change password/Logout
+
+- Posts Sections: List
+
+- Posts : List / Details / Filter 
+
+- My Posts: List/Details/Create/Edit/View/Delete
+
+- Comments: List post comments / Create comments
+```
+
+
 
 ## Default user
 ```bash
